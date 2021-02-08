@@ -21,7 +21,17 @@ public class MergeOverlappingInterval {
     private ArrayList<Interval> merge(ArrayList<Interval> intervals) {
         if(intervals.size()==1 || intervals.size()==0)
             return intervals;
-        Collections.sort(intervals, Comparator.comparing(s -> s.start));
+        Collections.sort(intervals, new Comparator<Interval>() {
+            @Override
+            public int compare(Interval o1, Interval o2) {
+                if (o1.start < o2.start)
+                    return -1;
+                if (o1.start > o2.start)
+                    return 1;
+                return 0;
+
+            }
+        });
         Interval newInterval = new Interval();
         int i=0;
         while(i<intervals.size()-1)
